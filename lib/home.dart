@@ -21,7 +21,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-
+boll toggle=false;
   Color color1=  Color.fromRGBO(238, 28, 57, 1);
   Color color2= Color.fromRGBO(200, 200, 200, 1);
   Color color3= Color.fromRGBO(200, 200, 200, 1);
@@ -680,7 +680,80 @@ class _HomeState extends State<Home> {
                                     spreadRadius: 1,
                                     offset: Offset(2, 2))
                               ]),
-                          child: Column(
+                          child: toggle?Row(children: [
+    ClipRRect(
+    borderRadius: BorderRadius.only(
+    topLeft: Radius.circular(30), topRight: Radius.circular(30)),
+    child: Container(
+    height: MediaQuery.of(context).size.height * 0.2,
+    width: MediaQuery.of(context).size.width,
+    decoration: BoxDecoration(
+    //  color:Colors.orange,
+    ),
+    child: Image.network(
+    coursethumbnail,
+    fit: BoxFit.cover,
+    ),),
+    ),
+    SizedBox(
+    height: MediaQuery.of(context).size.height * 0.05,
+    ),
+    Padding(
+    padding: EdgeInsets.only(
+    right: MediaQuery.of(context).size.width * 0.04,
+    left: MediaQuery.of(context).size.width * 0.04,
+    ),
+    child: Row(
+    children: [
+    Container(
+    decoration: BoxDecoration(
+    //  color:Colors.green,
+    ),
+    child: Text(
+    coursename,
+    style:
+    TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
+    ),
+    alignment: Alignment.centerLeft,
+    ),
+    SizedBox(
+    height: MediaQuery.of(context).size.height * 0.05,
+    ),
+    Container(
+    decoration: BoxDecoration(
+    //color:Colors.green,
+    ),
+    child: Text(
+    shortdescription,
+    style: TextStyle(fontSize: 16),
+    ),
+    alignment: Alignment.centerLeft,
+    ),
+    SizedBox(
+    height: MediaQuery.of(context).size.height * 0.05,
+    ),
+    SizedBox(
+    height: MediaQuery.of(context).size.height * 0.05,
+    width: MediaQuery.of(context).size.width,
+    child: ElevatedButton(
+    onPressed: () {
+    Navigator.push(context, MaterialPageRoute(builder: (context) => Getdetails(docid: docid),));
+    },
+    child: Text("View Course"),
+    style: ElevatedButton.styleFrom(
+    shape: RoundedRectangleBorder(
+    borderRadius: BorderRadius.all(Radius.circular(5))),
+    backgroundColor: Colors.black,
+    ),
+    ),
+    ),
+    SizedBox(
+    height: MediaQuery.of(context).size.height * 0.05,
+    ),
+    ],
+    ),
+    ),
+    ],):Column(
                             children: [
                               ClipRRect(
                                 borderRadius: BorderRadius.only(
@@ -757,7 +830,7 @@ class _HomeState extends State<Home> {
                             ],
                           ),),
                       );
-                    }
+
 
                     return ListView.builder(
                       itemCount: items.length,
@@ -765,7 +838,8 @@ class _HomeState extends State<Home> {
                         return Column(
                           children: [
                             items[index],
-                            SizedBox(height:50)
+                            SizedBox(height:50),
+                            ElevatedButton(onPressed:(){setState((){toggle=!toggle;});},child:Text("Change View"))
                           ],
                         );
                       },
